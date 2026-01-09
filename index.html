@@ -116,8 +116,10 @@
         <!-- Left Half (Youth) -->
         <div class="hero-half youth-half">
             <div class="hero-content">
-                <h2>Future Champions Start Here</h2>
-                <a href="registration.html" class="btn-hero youth-btn">VIEW KIDS PROGRAMS</a>
+                <h2 class="kinetic-text">Future Champions Start Here</h2>
+                <div class="kinetic-text delay-200">
+                    <a href="registration.html" class="btn-hero youth-btn">VIEW KIDS PROGRAMS</a>
+                </div>
             </div>
             <div class="hero-overlay youth-overlay"></div>
             <!-- Using the first image for Youth - placeholder, subject to user review -->
@@ -127,8 +129,10 @@
         <!-- Right Half (Adult) -->
         <div class="hero-half adult-half">
             <div class="hero-content">
-                <h2>Unleash Your Competitive Edge</h2>
-                <a href="registration.html" class="btn-hero adult-btn">JOIN ADULT LEAGUES</a>
+                <h2 class="kinetic-text delay-100">Unleash Your Competitive Edge</h2>
+                <div class="kinetic-text delay-300">
+                    <a href="registration.html" class="btn-hero adult-btn">JOIN ADULT LEAGUES</a>
+                </div>
             </div>
             <div class="hero-overlay adult-overlay"></div>
             <!-- Using the second image for Adult - placeholder, subject to user review -->
@@ -136,12 +140,13 @@
         </div>
     </section>
 
-    <!-- Programs Grid Section -->
+    <!-- Programs Grid Section (BENTO V2) -->
     <section class="programs-section">
-        <h2 class="section-title">Explore Our Programs</h2>
-        <div class="programs-grid">
-            <!-- Youth Programs -->
-            <div class="program-card neon-green">
+        <h2 class="section-title kinetic-text">Explore Our Programs</h2>
+
+        <div class="bento-grid">
+            <!-- Youth Programs (Large Span) -->
+            <div class="program-card neon-green glass-panel bento-item span-2-col span-2-row scroll-reveal">
                 <h3>Youth Academy</h3>
                 <p>From toddlers to teens, we build future champions through fun and expert coaching.</p>
                 <ul>
@@ -152,28 +157,28 @@
                 <a href="registration.html" class="btn-card">Start Playing</a>
             </div>
 
-            <!-- Adult Programs -->
-            <div class="program-card neon-cyan">
+            <!-- Adult Leagues (Tall/Wide) -->
+            <div class="program-card neon-cyan glass-panel bento-item span-2-col scroll-reveal delay-100">
                 <h3>Adult Leagues</h3>
                 <p>Competitive & recreational leagues for all skill levels. Men's, Women's, and Co-ed.</p>
-                <ul>
-                    <li>Soccer Leagues</li>
-                    <li>Open Play</li>
-                    <li>Dodgeball</li>
-                </ul>
-                <a href="registration.html" class="btn-card">Join a Team</a>
+                <div style="margin-top: auto;">
+                    <a href="registration.html" class="btn-card">Join a Team</a>
+                </div>
             </div>
 
-            <!-- Community & Events -->
-            <div class="program-card neon-pink">
-                <h3>Events & Parties</h3>
-                <p>The perfect venue for unforgettable birthdays, camps, and corporate events.</p>
-                <ul>
-                    <li>Birthday Parties</li>
-                    <li>Sports Camps</li>
-                    <li>Inflatable FunZones</li>
-                </ul>
-                <a href="registration.html" class="btn-card">Book Your Event</a>
+            <!-- Events (Std) -->
+            <div class="program-card neon-pink glass-panel bento-item scroll-reveal delay-200">
+                <h3>Parties</h3>
+                <p>Unforgettable birthdays & events.</p>
+                <a href="registration.html" class="btn-card">Book Now</a>
+            </div>
+
+            <!-- New/Extra Item for Bento Balance (Std) -->
+            <div class="program-card glass-panel bento-item scroll-reveal delay-300"
+                style="border-top: 4px solid #ffffff;">
+                <h3>Camps</h3>
+                <p>School's out? We are on!</p>
+                <a href="registration.html" class="btn-card">Learn More</a>
             </div>
         </div>
     </section>

@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateIcon(newTheme);
     });
 
+
     function updateIcon(theme) {
         if (theme === 'light') {
             toggleIcon.textContent = '☀️';
@@ -40,4 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleIcon.style.filter = 'drop-shadow(0 0 5px white)';
         }
     }
+
+    // --- V2 Animation Logic ---
+    const observerOptions = {
+        threshold: 0.15, // Trigger when 15% visible
+        rootMargin: "0px"
+    };
+
+    const animateOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Run once
+            }
+        });
+    }, observerOptions);
+
+    // Target elements
+    document.querySelectorAll('.kinetic-text, .scroll-reveal').forEach(el => {
+        animateOnScroll.observe(el);
+    });
 });
