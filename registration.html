@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Registration | SC Soccer Center</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Oswald:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .registration-container {
+            max-width: 800px;
+            margin: 120px auto 60px;
+            padding: 40px;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .step-indicators::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+
+        .step-indicator {
+            width: 40px;
+            height: 40px;
+            background: #121212;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .step-indicator.active {
+            border-color: var(--color-neon-green);
+            color: var(--color-neon-green);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+        }
+
+        .step-indicator.completed {
+            background-color: var(--color-neon-green);
+            border-color: var(--color-neon-green);
+            color: #121212;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+        }
+
+        .legal-text {
+            height: 150px;
+            overflow-y: auto;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .signature-field {
+            font-family: 'Dancing Script', cursive;
+            /* Fallback will just be cursive if not loaded */
+            font-size: 1.5rem;
+        }
+
+        .stripe-mockup {
+            background: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+
+        .stripe-row {
+            margin-bottom: 16px;
+        }
+
+        .stripe-label {
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .stripe-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        .btn-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--color-neon-green);
+            color: #121212;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 4px;
+            /* Using standard radius for form buttons */
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 15px var(--color-neon-green);
+            transform: scale(1.02);
+        }
+
+        .success-message {
+            text-align: center;
+            display: none;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--color-neon-green);
+            margin-bottom: 20px;
+        }
+
+        .background-blob {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            top: -200px;
+            left: -200px;
+            background: var(--color-neon-green);
+        }
+
+        .blob-2 {
+            bottom: -200px;
+            right: -200px;
+            background: var(--color-cyan);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+
+    <!-- Reusing Glassmorphism Header -->
+    <header class="glass-header">
+        <a href="index.html" style="text-decoration: none;">
+            <div class="logo">SC SOCCER CENTER</div>
+        </a>
+        <a href="registration.html" class="btn-register">REGISTER NOW</a>
+    </header>
+
+    <div class="registration-container">
+        <div class="step-indicators">
+            <div class="step-indicator active" id="indicator-1">1</div>
+            <div class="step-indicator" id="indicator-2">2</div>
+            <div class="step-indicator" id="indicator-3">3</div>
+        </div>
+
+        <form id="registrationForm">
+            <!-- Step 1: Player Info -->
+            <div class="form-step active" id="step-1">
+                <h2 style="margin-bottom: 24px; color: var(--color-neon-green);">Player Information</h2>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Skill Level</label>
+                    <select required>
+                        <option value="">Select Level</option>
+                        <option value="beginner">Beginner (Recreational)</option>
+                        <option value="intermediate">Intermediate (Competitive)</option>
+                        <option value="advanced">Advanced (Elite)</option>
+                    </select>
+                </div>
+                <div class="btn-nav" style="justify-content: flex-end;">
+                    <button type="button" class="btn-primary" onclick="nextStep(1)">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Legal -->
+            <div class="form-step" id="step-2">
+                <h2 style="margin-bottom: 24px; color: var(--color-cyan);">Legal Agreements</h2>
+
+                <label>Code of Conduct</label>
+                <div class="legal-text">
+                    <strong>SC Soccer Center Code of Conduct</strong><br><br>
+                    1. Respect all players, referees, and staff.<br>
+                    2. No foul language or aggressive behavior.<br>
+                    3. Play fair and uphold the spirit of the game.<br>
+                    4. Safety is the priority. Dangerous play will result in suspension.<br>
+                    5. Alcohol and drugs are strictly prohibited on the premises.<br>
+                    <br><em>By signing below, I agree to adhere to these standards.</em>
+                </div>
+
+                <label>Liability Waiver</label>
+                <div class="legal-text">
+                    <strong>Release of Liability</strong><br><br>
+                    I hereby release SC Soccer Center, its owners, and employees from any liability regarding injuries
+                    sustained while participating in league activities. I understand soccer is a physical sport and
+                    assume all risks associated with participation.<br>
+                    <br><em>By signing below, I acknowledge these risks.</em>
+                </div>
+
+                <div class="form-group">
+                    <label>Digital Signature (Type Full Name)</label>
+                    <input type="text" class="signature-field" required placeholder="Sign here...">
+                </div>
+
+                <div class="btn-nav">
+                    <button type="button" class="btn-secondary" onclick="prevStep(2)">Back</button>
+                    <button type="button" class="btn-primary" onclick="nextStep(2)">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Payment -->
+            <div class="form-step" id="step-3">
+                <h2 style="margin-bottom: 24px; color: var(--color-neon-green);">Secure Payment</h2>
+                <p style="margin-bottom: 20px; color: rgba(255,255,255,0.7);">Registration Fee: <strong>$150.00</strong>
+                </p>
+
+                <!-- Mock Stripe Element -->
+                <div class="stripe-mockup">
+                    <div class="stripe-row">
+                        <div class="stripe-label">Card Information</div>
+                        <input type="text" class="stripe-input" placeholder="1234 1234 1234 1234"
+                            style="background: #fff; color: #333; border: 1px solid #ccc;">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">
+                            <div class="stripe-label">Expiration</div>
+                            <input type="text" class="stripe-input" placeholder="MM / YY"
+                                style="background: #fff; color: #333; border: 1px solid #ccc;">
+                        </div>
+                        <div style="flex: 1;">
+                            <div class="stripe-label">CVC</div>
+                            <input type="text" class="stripe-input" placeholder="CVC"
+                                style="background: #fff; color: #333; border: 1px solid #ccc;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-nav">
+                    <button type="button" class="btn-secondary" onclick="prevStep(3)">Back</button>
+                    <button type="button" class="btn-primary" onclick="completeRegistration()">Pay & Register</button>
+                </div>
+            </div>
+
+            <!-- Success State -->
+            <div class="success-message" id="success-screen">
+                <div class="success-icon">✓</div>
+                <h2 style="margin-bottom: 16px;">Welcome to the League!</h2>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 30px;">Your registration and payment have been
+                    successfully processed.<br>A confirmation email with your game schedule has been sent.</p>
+                <a href="index.html" class="btn-primary" style="text-decoration: none;">Return Home</a>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        function nextStep(current) {
+            // Validation Logic could go here
+            document.getElementById(`step-${current}`).classList.remove('active');
+            document.getElementById(`step-${current + 1}`).classList.add('active');
+
+            document.getElementById(`indicator-${current}`).classList.remove('active');
+            document.getElementById(`indicator-${current}`).classList.add('completed');
+            document.getElementById(`indicator-${current + 1}`).classList.add('active');
+        }
+
+        function prevStep(current) {
+            document.getElementById(`step-${current}`).classList.remove('active');
+            document.getElementById(`step-${current - 1}`).classList.add('active');
+
+            document.getElementById(`indicator-${current}`).classList.remove('active');
+            document.getElementById(`indicator-${current - 1}`).classList.remove('completed');
+            document.getElementById(`indicator-${current - 1}`).classList.add('active');
+        }
+
+        function completeRegistration() {
+            // Simulate processing
+            const btn = document.querySelector('#step-3 .btn-primary');
+            btn.innerHTML = 'Processing...';
+            btn.style.opacity = '0.7';
+
+            setTimeout(() => {
+                document.getElementById('step-3').style.display = 'none';
+                document.querySelector('.step-indicators').style.display = 'none';
+                document.getElementById('success-screen').style.display = 'block';
+                document.getElementById('success-screen').style.animation = 'fadeIn 0.5s ease';
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>
